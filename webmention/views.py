@@ -17,7 +17,7 @@ def fetch_and_validate_source(source, target):
     response = requests.get(source)
     if response.status_code == 200:
         if target in str(response.content):
-            return HttpResponse('Target URL found in fetched source URL')
+            return response.content
         else:
             raise TargetNotFoundError
     else:
@@ -34,7 +34,7 @@ def receive(request):
             return HttpResponseBadRequest('Target URL did not resolve to a resource on the server')
 
         try:
-            fetch_and_validate_source(source, target)
+            return HttpResponse(fetch_and_validate_source(source, target))
         except SourceFetchError:
             return HttpResponseBadRequest('Could not fetch source URL')
         except TargetNotFoundError:
