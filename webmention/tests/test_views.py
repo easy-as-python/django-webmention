@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.http import HttpResponseBadRequest, HttpResponse, HttpResponseServerError
 
 from ..views import receive
-from webmention.resolution import SourceFetchError, TargetNotFoundError
+from ..resolution import SourceFetchError, TargetNotFoundError
 
 
 class ReceiveTestCase(TestCase):
