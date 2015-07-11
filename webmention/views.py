@@ -12,21 +12,23 @@ def receive(request):
     if 'source' in request.POST and 'target' in request.POST:
         source = request.POST.get('source')
         target = request.POST.get('target')
+        webmention = None
 
         if not url_resolves(target):
             return HttpResponseBadRequest('Target URL did not resolve to a resource on the server')
 
         try:
-            webmention = WebMentionResponse()
-            webmention.response_body = fetch_and_validate_source(source, target)
-            webmention.source = source
-            webmention.response_to = target
-            webmention.save()
+            try:
+                webmention = WebMentionResponse.objects.get(source=source, response_to=target)
+            except WebMentionResponse.DoesNotExist:
+                webmention = WebMentionResponse()
+
+            response_body = fetch_and_validate_source(source, target)
+            webmention.update(source, target, response_body)
             return HttpResponse('webmention successful')
-        except SourceFetchError:
-            return HttpResponseBadRequest('Could not fetch source URL')
-        except TargetNotFoundError:
-            return HttpResponseBadRequest('Source URL did not contain target URL') 
+        except (SourceFetchError, TargetNotFoundError) as e:
+            webmention.invalidate()
+            return HttpResponseBadRequest(str(e))
         except Exception as e:
             return HttpResponseServerError(str(e))
     else:

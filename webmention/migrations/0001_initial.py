@@ -18,6 +18,9 @@ class Migration(migrations.Migration):
                 ('response_to', models.URLField()),
                 ('source', models.URLField()),
                 ('reviewed', models.BooleanField(default=False)),
+                ('current', models.BooleanField(default=True)),
+                ('date_created', models.DateTimeField(auto_now_add=True)),
+                ('date_modified', models.DateTimeField(auto_now=True)),
             ],
         ),
     ]

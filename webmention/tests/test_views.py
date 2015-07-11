@@ -42,10 +42,10 @@ class ReceiveTestCase(TestCase):
         mock_url_resolves.assert_called_once_with(self.target)
         self.assertTrue(isinstance(response, HttpResponseBadRequest))
 
-    @patch('webmention.views.WebMentionResponse.save')
+    @patch('webmention.views.WebMentionResponse.update')
     @patch('webmention.views.fetch_and_validate_source')
     @patch('webmention.views.url_resolves')
-    def test_receive_happy_path(self, mock_url_resolves, mock_fetch_and_validate_source, mock_save):
+    def test_receive_happy_path(self, mock_url_resolves, mock_fetch_and_validate_source, mock_update):
         request = Mock()
         request.method = 'POST'
         request.POST = {'source': self.source, 'target': self.target}
@@ -55,14 +55,14 @@ class ReceiveTestCase(TestCase):
         response = receive(request)
 
         mock_fetch_and_validate_source.assert_called_once_with(self.source, self.target)
-        mock_save.assert_called_once()
+        mock_update.assert_called_once_with(self.source, self.target, mock_fetch_and_validate_source.return_value)
         mock_url_resolves.assert_called_once_with(self.target)
         self.assertTrue(isinstance(response, HttpResponse))
 
-    @patch('webmention.views.WebMentionResponse.save')
+    @patch('webmention.views.WebMentionResponse.invalidate')
     @patch('webmention.views.fetch_and_validate_source')
     @patch('webmention.views.url_resolves')
-    def test_receive_when_source_unavailable(self, mock_url_resolves, mock_fetch_and_validate_source, mock_save):
+    def test_receive_when_source_unavailable(self, mock_url_resolves, mock_fetch_and_validate_source, mock_invalidate):
         request = Mock()
         request.method = 'POST'
         request.POST = {'source': self.source, 'target': self.target}
@@ -73,12 +73,13 @@ class ReceiveTestCase(TestCase):
 
         mock_fetch_and_validate_source.assert_called_once_with(self.source, self.target)
         mock_url_resolves.assert_called_once_with(self.target)
+        mock_invalidate.assert_called_once()
         self.assertTrue(isinstance(response, HttpResponseBadRequest))
 
-    @patch('webmention.views.WebMentionResponse.save')
+    @patch('webmention.views.WebMentionResponse.invalidate')
     @patch('webmention.views.fetch_and_validate_source')
     @patch('webmention.views.url_resolves')
-    def test_receive_when_source_does_not_contain_target(self, mock_url_resolves, mock_fetch_and_validate_source, mock_save):
+    def test_receive_when_source_does_not_contain_target(self, mock_url_resolves, mock_fetch_and_validate_source, mock_invalidate):
         request = Mock()
         request.method = 'POST'
         request.POST = {'source': self.source, 'target': self.target}
@@ -89,12 +90,12 @@ class ReceiveTestCase(TestCase):
 
         mock_fetch_and_validate_source.assert_called_once_with(self.source, self.target)
         mock_url_resolves.assert_called_once_with(self.target)
+        mock_invalidate.assert_called_once()
         self.assertTrue(isinstance(response, HttpResponseBadRequest))
 
-    @patch('webmention.views.WebMentionResponse.save')
     @patch('webmention.views.fetch_and_validate_source')
     @patch('webmention.views.url_resolves')
-    def test_receive_when_general_exception_occurs(self, mock_url_resolves, mock_fetch_and_validate_source, mock_save):
+    def test_receive_when_general_exception_occurs(self, mock_url_resolves, mock_fetch_and_validate_source):
         request = Mock()
         request.method = 'POST'
         request.POST = {'source': self.source, 'target': self.target}

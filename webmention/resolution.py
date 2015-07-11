@@ -18,9 +18,9 @@ def fetch_and_validate_source(source, target):
         if target in str(response.content):
             return response.content
         else:
-            raise TargetNotFoundError
+            raise TargetNotFoundError('Source URL did not contain target URL')
     else:
-        raise SourceFetchError
+        raise SourceFetchError('Could not fetch source URL')
 
 
 class SourceFetchError(Exception):
