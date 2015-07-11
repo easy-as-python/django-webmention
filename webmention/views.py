@@ -4,7 +4,9 @@ from urllib.parse import urlparse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.core.urlresolvers import resolve, Resolver404
-from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseServerError
+from django.http import HttpResponseBadRequest, HttpResponseServerError, HttpResponse
+
+from .models import WebMentionResponse
 
 def url_resolves(url):
     try:
@@ -34,7 +36,12 @@ def receive(request):
             return HttpResponseBadRequest('Target URL did not resolve to a resource on the server')
 
         try:
-            return HttpResponse(fetch_and_validate_source(source, target))
+            webmention = WebMentionResponse()
+            webmention.response_body = fetch_and_validate_source(source, target)
+            webmention.source = source
+            webmention.response_to = target
+            webmention.save()
+            return HttpResponse('webmention successful')
         except SourceFetchError:
             return HttpResponseBadRequest('Could not fetch source URL')
         except TargetNotFoundError:
