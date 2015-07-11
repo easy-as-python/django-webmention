@@ -1,29 +1,10 @@
-import requests
-from urllib.parse import urlparse
-
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
-from django.core.urlresolvers import resolve, Resolver404
 from django.http import HttpResponseBadRequest, HttpResponseServerError, HttpResponse
 
 from .models import WebMentionResponse
+from .resolution import url_resolves, fetch_and_validate_source, SourceFetchError, TargetNotFoundError
 
-def url_resolves(url):
-    try:
-        resolve(urlparse(url).path)
-    except Resolver404:
-        return False
-    return True
-
-def fetch_and_validate_source(source, target):
-    response = requests.get(source)
-    if response.status_code == 200:
-        if target in str(response.content):
-            return response.content
-        else:
-            raise TargetNotFoundError
-    else:
-        raise SourceFetchError
 
 @csrf_exempt
 @require_POST
@@ -51,8 +32,3 @@ def receive(request):
     else:
         return HttpResponseBadRequest('webmention source and/or target not in request')
 
-class SourceFetchError(Exception):
-    pass
-
-class TargetNotFoundError(Exception):
-    pass

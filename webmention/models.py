@@ -1,15 +1,15 @@
 from django.db import models
 
 
-class WebMention(models.Model):
-    source = models.URLField()
-    target = models.URLField()
-
 class WebMentionResponse(models.Model):
     response_body = models.TextField()
     response_to = models.URLField()
     source = models.URLField()
     reviewed = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = 'webmention'
+        verbose_name_plural = 'webmentions'
 
     def __str__(self):
         return self.source
