@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='WebMentionResponse',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, primary_key=True, serialize=False)),
                 ('response_body', models.TextField()),
                 ('response_to', models.URLField()),
                 ('source', models.URLField()),
@@ -22,5 +22,9 @@ class Migration(migrations.Migration):
                 ('date_created', models.DateTimeField(auto_now_add=True)),
                 ('date_modified', models.DateTimeField(auto_now=True)),
             ],
+            options={
+                'verbose_name': 'webmention',
+                'verbose_name_plural': 'webmentions',
+            },
         ),
     ]
