@@ -1,6 +1,6 @@
 # django-webmention
 
-A pluggable implementation of webmention for Django projects.
+webmention for Django projects.
 
 `$ pip install django-webmention`
 
