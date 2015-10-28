@@ -1,5 +1,5 @@
-django-webmention
-=================
+django-webmention |PyPI version|
+================================
 
 webmention for Django projects.
 
@@ -27,3 +27,6 @@ Usage
 
 -  View webmention responses in the Django admin tool and mark them as
    reviewed as needed
+
+.. |PyPI version| image:: https://badge.fury.io/py/django-webmention.svg
+   :target: https://badge.fury.io/py/django-webmention

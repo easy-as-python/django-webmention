@@ -1,4 +1,4 @@
-# django-webmention
+# django-webmention [![PyPI version](https://badge.fury.io/py/django-webmention.svg)](https://badge.fury.io/py/django-webmention)
 
 webmention for Django projects.
 
