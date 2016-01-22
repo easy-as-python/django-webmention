@@ -11,7 +11,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-webmention',
-    version='0.0.2',
+    version='0.0.3',
     packages=find_packages(),
     description='A pluggable implementation of webmention for Django projects.',
     keywords='webmention pingback linkback blogging',
@@ -26,6 +26,7 @@ setup(
         'Intended Audience :: Developers',
         'Framework :: Django',
         'Framework :: Django :: 1.8',
+        'Framework :: Django :: 1.9',
         'Topic :: Internet :: WWW/HTTP :: Indexing/Search',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3',
