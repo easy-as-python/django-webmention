@@ -8,7 +8,7 @@ webmention for Django projects.
 
 * Add `webmention` to `INSTALLED_APPS`
 * Run `manage.py migrate webmention`
-* Add `(r'^webmention', include('webmention.urls'), namespace='webmention')` to top-level `urls.py`
+* Add `url(r'^webmention', include('webmention.urls', namespace='webmention'))` to top-level `urls.py`
 * Run `manage.py test webmention` to ensure unit tests all pass 
 
 ## Usage
