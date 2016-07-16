@@ -4,5 +4,3 @@ python:
   - "3.5"
 script:
   - python runtests.py
-before_script:
-  - python manage.py migrate
