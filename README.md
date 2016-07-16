@@ -1,4 +1,4 @@
-# django-webmention [![PyPI version](https://badge.fury.io/py/django-webmention.svg)](https://badge.fury.io/py/django-webmention)
+# django-webmention [![PyPI version](https://badge.fury.io/py/django-webmention.svg)](https://badge.fury.io/py/django-webmention) [![Build Status](https://travis-ci.org/easy-as-python/django-webmention.svg?branch=master)](https://travis-ci.org/easy-as-python/django-webmention)
 
 webmention for Django projects.
 
