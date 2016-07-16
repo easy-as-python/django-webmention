@@ -3,6 +3,6 @@ python:
   - "3.4"
   - "3.5"
 script:
-  - python manage.py test --noinput
+  - python runtests.py
 before_script:
   - python manage.py migrate

@@ -2,7 +2,7 @@ from unittest.mock import patch
 
 from django.test import TestCase
 
-from ..models import WebMentionResponse
+from webmention.models import WebMentionResponse
 
 
 class WebMentionResponseTestCase(TestCase):
@@ -46,10 +46,11 @@ class WebMentionResponseTestCase(TestCase):
     @patch('webmention.models.WebMentionResponse.save')
     def test_update_when_previously_invalid(self, mock_save):
         webmention = WebMentionResponse.objects.create(source='foo', response_to='bar', response_body='baz', current=False)
+        self.assertEqual(1, mock_save.call_count)
         webmention.update(self.source, self.target, self.response_body)
 
         self.assertTrue(webmention.current)
         self.assertEqual(self.source, webmention.source)
         self.assertEqual(self.target, webmention.response_to)
         self.assertEqual(self.response_body, webmention.response_body)
-        mock_save.assert_called_once()
+        self.assertEqual(2, mock_save.call_count)

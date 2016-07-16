@@ -73,7 +73,7 @@ class ReceiveTestCase(TestCase):
 
         mock_fetch_and_validate_source.assert_called_once_with(self.source, self.target)
         mock_url_resolves.assert_called_once_with(self.target)
-        mock_invalidate.assert_called_once()
+        self.assertEqual(1, mock_invalidate.call_count)
         self.assertTrue(isinstance(response, HttpResponseBadRequest))
 
     @patch('webmention.views.WebMentionResponse.invalidate')
@@ -90,7 +90,7 @@ class ReceiveTestCase(TestCase):
 
         mock_fetch_and_validate_source.assert_called_once_with(self.source, self.target)
         mock_url_resolves.assert_called_once_with(self.target)
-        mock_invalidate.assert_called_once()
+        self.assertEqual(1, mock_invalidate.call_count)
         self.assertTrue(isinstance(response, HttpResponseBadRequest))
 
     @patch('webmention.views.fetch_and_validate_source')
