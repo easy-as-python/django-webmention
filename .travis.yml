@@ -8,7 +8,7 @@ env:
   - DJANGO_VERSION=1.11.9
   - DJANGO_VERSION=2.0.1
 install:
-    pip install -r requirements.txt
-    pip install Django==$DJANGO_VERSION
+  - pip install -r requirements.txt
+  - pip install Django==$DJANGO_VERSION
 script:
   - python runtests.py
