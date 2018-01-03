@@ -1,5 +1,9 @@
 from unittest.mock import Mock, patch
-from django.core.urlresolvers import Resolver404
+
+try:
+    from django.core.urlresolvers import Resolver404
+except ImportError:
+    from django.urls import Resolver404
 
 from django.test import TestCase
 

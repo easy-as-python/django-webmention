@@ -1,5 +1,9 @@
 from unittest.mock import Mock
-from django.core.urlresolvers import reverse
+
+try:
+    from django.core.urlresolvers import reverse
+except ImportError:
+    from django.urls import reverse
 
 from django.http import HttpResponse
 from django.test import TestCase, Client
