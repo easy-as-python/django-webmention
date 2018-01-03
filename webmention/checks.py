@@ -8,7 +8,7 @@ def new_style_middleware_check(app_configs, **kwargs):
     errors = []
 
     if django.VERSION[1] >= 10 or django.VERSION[0] > 1:
-        installed_middlewares = getattr(settings, 'MIDDLEWARE', [])
+        installed_middlewares = getattr(settings, 'MIDDLEWARE', []) or []
         if 'webmention.middleware.WebMentionMiddleware' in installed_middlewares:
             errors.append(
                 Error(
