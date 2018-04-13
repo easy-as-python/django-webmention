@@ -1,8 +1,8 @@
 import os
 from setuptools import setup, find_packages
 
-with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as readme:
-        readme = readme.read()
+with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
+    readme = readme.read()
 
 with open(os.path.join(os.path.dirname(__file__), 'requirements.txt')) as requirements_file:
     requirements = [line.rstrip() for line in requirements_file if line != '\n']
