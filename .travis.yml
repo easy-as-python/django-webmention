@@ -14,7 +14,8 @@ env:
   - DJANGO_VERSION=2.0.3
   - DJANGO_VERSION=2.0.4
 install:
-  - pip install -r requirements.txt
-  - pip install Django==$DJANGO_VERSION
+  - pip install pipenv
+  - pipenv install --dev
+  - pipenv install Django==$DJANGO_VERSION
 script:
-  - python runtests.py
+  - pipenv run coverage run runtests.py && pipenv run coverage report
