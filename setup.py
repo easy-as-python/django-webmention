@@ -11,12 +11,13 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-webmention',
-    version='1.0.0',
+    version='1.0.1',
     packages=find_packages(),
     description='A pluggable implementation of webmention for Django projects.',
     author='Dane Hillard',
     author_email='github@danehillard.com',
     long_description=readme,
+    long_description_content_type='text/markdown',
     install_requires=requirements,
     url='https://github.com/easy-as-python/django-webmention',
     license='MIT',
