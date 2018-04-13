@@ -11,10 +11,9 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-webmention',
-    version='0.1.0',
+    version='1.0.0',
     packages=find_packages(),
     description='A pluggable implementation of webmention for Django projects.',
-    keywords='webmention pingback linkback blogging',
     author='Dane Hillard',
     author_email='github@danehillard.com',
     long_description=readme,
@@ -22,7 +21,7 @@ setup(
     url='https://github.com/easy-as-python/django-webmention',
     license='MIT',
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'Framework :: Django',
         'Framework :: Django :: 1.8',
@@ -32,9 +31,12 @@ setup(
         'Framework :: Django :: 2.0',
         'Topic :: Internet :: WWW/HTTP :: Indexing/Search',
         'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 3 :: Only',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
     ],
 )

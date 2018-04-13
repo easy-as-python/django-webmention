@@ -1,0 +1,15 @@
+[run]
+source = .
+branch = True
+omit =
+    manage.py
+    runtests.py
+    setup.py
+    */tests/*
+    */migrations/*
+    */admin.py
+    */__init__.py
+
+[report]
+show_missing = True
+skip_covered = True
