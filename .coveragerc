@@ -3,8 +3,8 @@ source = .
 branch = True
 omit =
     manage.py
-    runtests.py
     setup.py
+    webmention/checks.py
     */tests/*
     */migrations/*
     */admin.py

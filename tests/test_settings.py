@@ -10,4 +10,4 @@ DATABASES = {
     }
 }
 
-ROOT_URLCONF = 'webmention.tests.test_urls'
+ROOT_URLCONF = 'tests.test_urls'
