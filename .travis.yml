@@ -13,4 +13,4 @@ install:
   - pipenv install --dev
   - pipenv install Django==$DJANGO_VERSION
 script:
-  - pipenv run coverage run runtests.py && pipenv run coverage report
+  - pipenv run pytest --cov

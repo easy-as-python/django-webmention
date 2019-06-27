@@ -23,16 +23,15 @@
 
 ## Development
 
+### Setup
+
+* Install [pipenv](https://docs.pipenv.org/en/latest/)
+* `$ pipenv install --dev`
+
 ### Running Tests
 
-You can run tests using the `runtests.py` module:
+You can run tests using `pytest`:
 
 ```shell
-$ python runtests.py
-```
-
-You can also run the tests inside a consuming Django project:
-
-```
-$ python manage.py test webmention
+$ pipenv run pytest --cov
 ```
