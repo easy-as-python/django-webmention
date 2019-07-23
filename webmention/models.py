@@ -11,21 +11,23 @@ class WebMentionResponse(models.Model):
     date_modified = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name = 'webmention'
-        verbose_name_plural = 'webmentions'
+        verbose_name = "webmention"
+        verbose_name_plural = "webmentions"
 
     def __str__(self):
         return self.source
 
     def source_for_admin(self):
         return '<a href="{href}">{href}</a>'.format(href=self.source)
+
     source_for_admin.allow_tags = True
-    source_for_admin.short_description = 'source'
+    source_for_admin.short_description = "source"
 
     def response_to_for_admin(self):
         return '<a href="{href}">{href}</a>'.format(href=self.response_to)
+
     response_to_for_admin.allow_tags = True
-    response_to_for_admin.short_description = 'response to'
+    response_to_for_admin.short_description = "response to"
 
     def invalidate(self):
         if self.id:

@@ -9,13 +9,13 @@ from .resolution import url_resolves, fetch_and_validate_source, SourceFetchErro
 @csrf_exempt
 @require_POST
 def receive(request):
-    if 'source' in request.POST and 'target' in request.POST:
-        source = request.POST.get('source')
-        target = request.POST.get('target')
+    if "source" in request.POST and "target" in request.POST:
+        source = request.POST.get("source")
+        target = request.POST.get("target")
         webmention = None
 
         if not url_resolves(target):
-            return HttpResponseBadRequest('Target URL did not resolve to a resource on the server')
+            return HttpResponseBadRequest("Target URL did not resolve to a resource on the server")
 
         try:
             try:
@@ -25,12 +25,11 @@ def receive(request):
 
             response_body = fetch_and_validate_source(source, target)
             webmention.update(source, target, response_body)
-            return HttpResponse('The webmention was successfully received', status=202)
+            return HttpResponse("The webmention was successfully received", status=202)
         except (SourceFetchError, TargetNotFoundError) as e:
             webmention.invalidate()
             return HttpResponseBadRequest(str(e))
         except Exception as e:
             return HttpResponseServerError(str(e))
     else:
-        return HttpResponseBadRequest('webmention source and/or target not in request')
-
+        return HttpResponseBadRequest("webmention source and/or target not in request")

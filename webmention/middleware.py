@@ -7,17 +7,15 @@ except ImportError:
 
 
 def add_webmention_headers_to_response(request, response):
-        link_header = '<{scheme}://{host}{path}>; rel="webmention"'.format(
-            scheme=request.scheme,
-            host=request.META.get('HTTP_HOST'),
-            path=reverse('webmention:receive')
-        )
-        if not response.get('Link'):
-            response['Link'] = link_header
-        else:
-            response['Link'] = ', '.join((response['Link'], link_header))
+    link_header = '<{scheme}://{host}{path}>; rel="webmention"'.format(
+        scheme=request.scheme, host=request.META.get("HTTP_HOST"), path=reverse("webmention:receive")
+    )
+    if not response.get("Link"):
+        response["Link"] = link_header
+    else:
+        response["Link"] = ", ".join((response["Link"], link_header))
 
-        return response
+    return response
 
 
 class WebMentionMiddleware(object):
