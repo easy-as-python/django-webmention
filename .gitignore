@@ -61,3 +61,6 @@ target/
 
 # PyPI
 README.rst
+
+# pyenv
+.python-version

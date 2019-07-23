@@ -1,16 +1,15 @@
 dist: xenial
 language: python
+cache: pip
+
 python:
   - "3.5"
   - "3.6"
   - "3.7"
-env:
-  - DJANGO_VERSION=1.11
-  - DJANGO_VERSION=2.1
-  - DJANGO_VERSION=2.2
+  - "3.8-dev"
+
 install:
-  - pip install pipenv
-  - pipenv install --dev
-  - pipenv install Django==$DJANGO_VERSION
+  - pip install tox-travis
+
 script:
-  - pipenv run pytest --cov
+  - tox

@@ -25,13 +25,12 @@
 
 ### Setup
 
-* Install [pipenv](https://docs.pipenv.org/en/latest/)
-* `$ pipenv install --dev`
+* Install [tox](https://tox.readthedocs.io)
 
 ### Running Tests
 
-You can run tests using `pytest`:
+You can run tests using `tox`:
 
 ```shell
-$ pipenv run pytest --cov
+$ tox --parallel=auto
 ```
