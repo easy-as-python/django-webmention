@@ -1,5 +1,3 @@
 from django.conf.urls import url, include
 
-urlpatterns = [
-    url(r'^webmention', include('webmention.urls', namespace='webmention')),
-]
+urlpatterns = [url(r"^webmention", include("webmention.urls", namespace="webmention"))]

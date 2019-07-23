@@ -3,9 +3,9 @@ language: python
 cache: pip
 
 python:
-  - "3.5"
-  - "3.6"
   - "3.7"
+  - "3.6"
+  - "3.5"
   - "3.8-dev"
 
 install:
@@ -13,3 +13,16 @@ install:
 
 script:
   - tox
+
+stages:
+  - lint
+  - test
+
+jobs:
+  include:
+    - stage: lint
+      install:
+        - pip install black pyflakes
+      script:
+        - pyflakes webmention tests
+        - black --check webmention tests
