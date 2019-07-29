@@ -21,8 +21,5 @@ stages:
 jobs:
   include:
     - stage: lint
-      install:
-        - pip install black pyflakes
       script:
-        - pyflakes webmention tests
-        - black --check webmention tests
+        - tox -e lint
