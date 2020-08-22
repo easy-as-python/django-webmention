@@ -41,7 +41,7 @@ jobs:
             tags: true
             python: '3.8'
 
-        - &pypi  # Product PyPI
+        - &pypi  # Production PyPI
           provider: pypi
           user: '__token__'
           password:
