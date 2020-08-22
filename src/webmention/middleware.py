@@ -1,4 +1,5 @@
 from django.utils.decorators import decorator_from_middleware
+from django.utils.deprecation import MiddlewareMixin
 
 try:
     from django.core.urlresolvers import reverse
@@ -18,7 +19,7 @@ def add_webmention_headers_to_response(request, response):
     return response
 
 
-class WebMentionMiddleware(object):
+class WebMentionMiddleware(MiddlewareMixin):
     def process_response(self, request, response):
         return add_webmention_headers_to_response(request, response)
 

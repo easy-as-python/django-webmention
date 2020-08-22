@@ -3,10 +3,10 @@ language: python
 cache: pip
 
 python:
+  - "3.8"
   - "3.7"
   - "3.6"
   - "3.5"
-  - "3.8-dev"
 
 install:
   - pip install tox-travis
