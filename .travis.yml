@@ -54,3 +54,5 @@ jobs:
 
         - <<: *pypi  # Test PyPI
           server: 'https://test.pypi.org/legacy/'
+          password:
+            secure: 'Wgbk8W2KQfsaXFQBKNAAo7VvwuBIpGboYG+iaf/ImrkjDz1oLOy/P/d7qlEY79SJVdOAK5Orrf6Dp+vlKziiIcIIa+A0qfcLtNlT6nIhrx0h0l+N9/Hsliw1FAd1DhJA1a6qE8z3790ZHB6QXA8FWP2Vqd2iY05l3R3Ii0Rz+701WLENNi1+6iHiTdzLJJtcpvy9snzwdwLHLXJN2FDJbKRN1DJW2GE35OOxrhuZC8x8lUwsJujI1UbN5P16TWxVgNZz6Ob05hOkkRBaMDxXA9deSsk+wDqKoJaD2KWEr9GDzJLFTyw9ZOG3iN5eJ8IN011cXeJ3YneucHEkD+0xFjFF1oRzMkTw6Kga1+/IIzeUG8CeKR6RQ2V+1yI9Ou2qZmc975AlgPCbbfmBtOsoZZWsoQAPXrOyBpLhoiEHuqMglbhQDTz2jS9mgyYW5bXbhJhPrb7CwAtwjH1QpVlC2v0TTgwpGdY0KEhwKogm/cSudCOgKUHfU63AXJoIjAzTmsWbiCbkKrdQ+E7kHLVUxrPVennfueBQ0AXHrSRPkupYSzjeQFI4mE5y3NSxwDFgb3IZj8ingTKokHrO5W0JUBDlZEVlrT1HX0bcbu2V7sM9Iul1ZIWGAigOo+2izQSvxu1YMHvLX8ghjQagkOOFRXWiAzr++aKkqnxhJrgmjFM='
