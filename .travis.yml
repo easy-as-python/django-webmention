@@ -3,10 +3,9 @@ language: python
 cache: pip
 
 python:
-  - "3.7"
-  - "3.6"
-  - "3.5"
-  - "3.8-dev"
+  - '3.8'
+  - '3.7'
+  - '3.6'
 
 install:
   - pip install tox-travis
@@ -17,9 +16,43 @@ script:
 stages:
   - lint
   - test
+  - name: deploy
+    if: tag IS present
 
 jobs:
   include:
     - stage: lint
       script:
         - tox -e lint
+
+    - stage: deploy
+      before_deploy:
+        python setup.py sdist bdist_wheel
+      deploy:
+        - provider: releases  # GitHub releases
+          api_key:
+            secure: 'ONG/Gqo6zQvLTW2F4wIiu21fgDsBOSVWhuSgmzs98P6brIeSY4IqAYh6MH4d0XszfYOV1ytky3YjyoXbQsBdYBhyS6Psgw8XvJeLN/mRjr3gNmxZ0dEUiJcdnYePRLe7FG+gFB08FS+Aq4d9GqpithmBcHpGSmL6q5ZnnxC98OX/Ts46CrNiBCA6gg8klkOygk1VOJklJwWHK39yRZNuyUpKGk9WEf23BDpLoaqrnivwJODvMDCnGaAjTeeziCZlpGTdR75F6CViJkeqA9dq0cG6zy1i3q6Mf8zEBmmRJxFcrbW2pdDYgKiguGohTsxt2drhDQRTItbgu01pMXDtapX4WO51tEbEr2JjOq7Yv1L1VAyARFdM6E07s+JE5WLCWKxWlFxly0Vc58pRpd7wgP87lvGiPHSHPUVVeic9hzCbxMsl8iVzEO+MldZHHrgU9R0PQNW4LtpN0HGTTIyyu8cbGytfdd/ZoQVzW1cJMxuxBP8c4tj8uGlHQCRmxOy4pHhj3r2kyTLrbaR8VK2aLIMiosqylp1ZIDbmHSsSEYYDSrRsaXqEXXBaozqi/o9vZ0vnPMoHJ7L6FxR2c+1FjaIlmjnSUv6de5a9ytR6xoT8QYF4fbWA/U46yCJL7mboRXXqgqBwxHZNRrivnxBD3sfDSUT0Ykq3fegGGow2lfM='
+          file_glob: true
+          file:
+            - dist/django-webmention-*-py3-none-any.whl
+            - dist/django-webmention-*.tar.gz
+          skip_cleanup: true
+          on:
+            tags: true
+            python: '3.8'
+
+        - &pypi  # Production PyPI
+          provider: pypi
+          user: '__token__'
+          password:
+            secure: 'XXT3GDecB3QDePR5+3OotyUkz6esUmZK5InF4lJQ58SKU1e0R2CxgKivEKDDs88dFtiHdNnKwRknQ4/9WgQ5rhXuEZ/eiwmxue1xfa9284rfX6fAmnY1WCvnIonus82tmhCB6eSkQnRRu03+aLIilI4WYSb1rwkOx8Soa6rtRMbfGJNv8cAeDeHK2uM16WWgDVp+pZOO54r0a/j05SQk4VL/W5c9visFFnWKxZqBTK+C95ZAk1d4BoS+VHiYxzX4dImqSwomC4OZ4Df/lS7p/thabrC4T8n/KXBvI3LiM2u6glFM42rJ6MmFoadLaBwON4+OhInKJ+Pc8yWjKuQ34e07VZ97t3XXxEoSG3hrH0wHyTSx9tca8UwuIFqNP70DV9X8ePbINBCPCLKuJCOa5njUubU3MpXM9nwt71IjWCgZpxXj9mEYH0lPGDcR8kQLLGxxtoFL5oVrEDR6YrPoObuTokXMgXeLrNkcCkEKuzB6fPnH28hvXIshmixFygnz+fio4Z/CcE6A9oCp8hmFOAj+1ZPWJuiRZrQzuGV4S7/G6GHWhdI4S9W54A+3MU6QFhi2oum/IcG55C54eY0p04oFL87LaRhuy1SB7obr2i0871j2LR8tWzQIaaTgNww4cYPLKWnnYGXmiQxtkuwqT1VtCFvI2AufcDdL9x8bJ3U='
+          skip_cleanup: true
+          skip_existing: true
+          on:
+            tags: true
+            python: '3.8'
+
+        - <<: *pypi  # Test PyPI
+          server: 'https://test.pypi.org/legacy/'
+          password:
+            secure: 'Wgbk8W2KQfsaXFQBKNAAo7VvwuBIpGboYG+iaf/ImrkjDz1oLOy/P/d7qlEY79SJVdOAK5Orrf6Dp+vlKziiIcIIa+A0qfcLtNlT6nIhrx0h0l+N9/Hsliw1FAd1DhJA1a6qE8z3790ZHB6QXA8FWP2Vqd2iY05l3R3Ii0Rz+701WLENNi1+6iHiTdzLJJtcpvy9snzwdwLHLXJN2FDJbKRN1DJW2GE35OOxrhuZC8x8lUwsJujI1UbN5P16TWxVgNZz6Ob05hOkkRBaMDxXA9deSsk+wDqKoJaD2KWEr9GDzJLFTyw9ZOG3iN5eJ8IN011cXeJ3YneucHEkD+0xFjFF1oRzMkTw6Kga1+/IIzeUG8CeKR6RQ2V+1yI9Ou2qZmc975AlgPCbbfmBtOsoZZWsoQAPXrOyBpLhoiEHuqMglbhQDTz2jS9mgyYW5bXbhJhPrb7CwAtwjH1QpVlC2v0TTgwpGdY0KEhwKogm/cSudCOgKUHfU63AXJoIjAzTmsWbiCbkKrdQ+E7kHLVUxrPVennfueBQ0AXHrSRPkupYSzjeQFI4mE5y3NSxwDFgb3IZj8ingTKokHrO5W0JUBDlZEVlrT1HX0bcbu2V7sM9Iul1ZIWGAigOo+2izQSvxu1YMHvLX8ghjQagkOOFRXWiAzr++aKkqnxhJrgmjFM='
