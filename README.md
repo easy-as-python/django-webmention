@@ -9,7 +9,7 @@
 * Add `'webmention'` to `INSTALLED_APPS`
 * Run `python manage.py migrate webmention`
 * Add the URL patterns to your top-level `urls.py`
-    * `path('webmention/', include(webmention.urls))` for Django >= 2.0
+    * `path('webmention/', include('webmention.urls'))` for Django >= 2.0
     * `url(r'^webmention', include('webmention.urls', namespace='webmention'))` for Django < 2.0
 
 ## Usage
