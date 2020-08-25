@@ -18,15 +18,13 @@ class WebMentionResponse(models.Model):
         return self.source
 
     def source_for_admin(self):
-        return '<a href="{href}">{href}</a>'.format(href=self.source)
+        return format_html('<a href="{href}">{href}</a>'.format(href=self.source))
 
-    source_for_admin.allow_tags = True
     source_for_admin.short_description = "source"
 
     def response_to_for_admin(self):
-        return '<a href="{href}">{href}</a>'.format(href=self.response_to)
+        return format_html('<a href="{href}">{href}</a>'.format(href=self.response_to))
 
-    response_to_for_admin.allow_tags = True
     response_to_for_admin.short_description = "response to"
 
     def invalidate(self):
