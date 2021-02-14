@@ -26,10 +26,10 @@ def test_url_resolves_when_does_not_resolve(mock_resolve):
 def test_fetch_and_validate_source_happy_path(mock_get, test_source, test_target):
     mock_response = Mock()
     mock_response.status_code = 200
-    mock_response.content = '<a href="{href}">{href}</a>'.format(href=test_target)
+    mock_response.text = '<a href="{href}">{href}</a>'.format(href=test_target)
     mock_get.return_value = mock_response
 
-    assert fetch_and_validate_source(test_source, test_target) == mock_response.content
+    assert fetch_and_validate_source(test_source, test_target) == mock_response.text
 
 
 @patch("requests.get")
@@ -46,7 +46,7 @@ def test_fetch_and_validate_source_when_source_unavailable(mock_get, test_source
 def test_fetch_and_validate_source_when_source_does_not_contain_target(mock_get, test_source, test_target):
     mock_response = Mock()
     mock_response.status_code = 200
-    mock_response.content = "foo"
+    mock_response.text = "foo"
     mock_get.return_value = mock_response
 
     with pytest.raises(TargetNotFoundError):
