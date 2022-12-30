@@ -14,7 +14,7 @@ from webmention.middleware import WebMentionMiddleware
 
 @pytest.fixture
 def middleware():
-    return WebMentionMiddleware()
+    return WebMentionMiddleware(get_response=Mock())
 
 
 def test_process_request_creates_link_header(middleware):
