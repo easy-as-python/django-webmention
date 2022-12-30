@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.urls import re_path
 
 from . import views
 
@@ -6,4 +6,4 @@ from . import views
 app_name = "webmention"
 
 
-urlpatterns = [url(r"^receive$", views.receive, name="receive")]
+urlpatterns = [re_path(r"^receive$", views.receive, name="receive")]
