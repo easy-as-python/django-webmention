@@ -2,11 +2,7 @@ from unittest.mock import Mock
 
 import pytest
 
-try:
-    from django.core.urlresolvers import reverse
-except ImportError:
-    from django.urls import reverse
-
+from django.urls import reverse
 from django.http import HttpResponse
 
 from webmention.middleware import WebMentionMiddleware

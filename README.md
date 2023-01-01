@@ -21,15 +21,13 @@ This package does not currently provide functionality for [sending webmentions](
 * Add `'webmention'` to `INSTALLED_APPS`
 * Run `python manage.py migrate webmention`
 * Add the URL patterns to your top-level `urls.py`
-    * `path('webmention/', include('webmention.urls'))` for Django >= 2.0
-    * `url(r'^webmention', include('webmention.urls', namespace='webmention'))` for Django < 2.0
+    * `path('webmention/', include('webmention.urls'))` for Django >= 3.2
 
 ## Usage
 
 * Include webmention information by either:
     * Installing the middleware in `settings.py` (affects all views)
-        * Use `webmention.middleware.webmention_middleware` in `MIDDLEWARE` for Django >= 1.10
-        * Use `webmention.middleware.WebMentionMiddleware` in `MIDDLEWARE_CLASSES` for older projects
+        * Append `webmention.middleware.webmention_middleware` to your `MIDDLEWARE` settings
     * Decorating a specific view with `webmention.middleware.include_webmention_information`
 * View webmention responses in the Django admin interface and mark them as reviewed as needed
 
