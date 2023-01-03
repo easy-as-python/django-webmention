@@ -2,11 +2,7 @@ from unittest.mock import Mock
 
 import pytest
 
-try:
-    from django.core.urlresolvers import reverse
-except ImportError:
-    from django.urls import reverse
-
+from django.urls import reverse
 from django.http import HttpResponse
 
 from webmention.middleware import WebMentionMiddleware
@@ -14,7 +10,7 @@ from webmention.middleware import WebMentionMiddleware
 
 @pytest.fixture
 def middleware():
-    return WebMentionMiddleware()
+    return WebMentionMiddleware(get_response=Mock())
 
 
 def test_process_request_creates_link_header(middleware):

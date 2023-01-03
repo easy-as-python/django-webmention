@@ -1,3 +1,3 @@
-from django.conf.urls import url, include
+from django.urls import re_path, include
 
-urlpatterns = [url(r"^webmention", include("webmention.urls", namespace="webmention"))]
+urlpatterns = [re_path(r"^webmention", include("webmention.urls", namespace="webmention"))]
