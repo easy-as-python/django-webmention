@@ -1,3 +1,235 @@
+[project]
+name = "django-webmention"
+version = "3.0.0"
+description = "A pluggable implementation of webmention for Django projects"
+authors = [
+    { name = "Dane Hillard", email = "github@danehillard.com" },
+]
+license = { file = "LICENSE" }
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Framework :: Django",
+    "Framework :: Django :: 3.2",
+    "Framework :: Django :: 4.0",
+    "Framework :: Django :: 4.1",
+    "Topic :: Internet :: WWW/HTTP :: Indexing/Search",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+    "Django>=4.2.0",
+    "requests>=2.32.3",
+]
+
+[project.urls]
+Repository = "https://github.com/easy-as-python/django-webmention"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+exclude = ["test*"]
+
+######################
+# Tool configuration #
+######################
+
 [tool.black]
 line-length = 120
-target-version = ['py35', 'py36', 'py37', 'py38']
+target-version = ["py39", "py310", "py311", "py312", "py313"]
+
+[tool.mypy]
+python_version = "3.9"
+warn_unused_configs = true
+show_error_context = true
+pretty = true
+namespace_packages = true
+check_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = [
+    "django.core.urlresolvers",
+]
+ignore_missing_imports = true
+
+[tool.coverage.run]
+branch = true
+omit = [
+    "manage.py",
+    "webmention/checks.py",
+    "*test*",
+    "*/migrations/*",
+    "*/admin.py",
+    "*/__init__.py",
+]
+
+[tool.coverage.report]
+precision = 2
+show_missing = true
+skip_covered = true
+
+[tool.coverage.paths]
+source = [
+    "src/webmention",
+    "*/site-packages/webmention",
+]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "tests.settings"
+testpaths = ["tests"]
+addopts = ["-ra", "-q", "--cov=webmention"]
+xfail_strict = true
+
+[tool.tox]
+envlist = [
+    "py39-django4.2",
+    "py39-django5.0",
+    "py39-django5.1",
+    "py310-django4.2",
+    "py310-django5.0",
+    "py310-django5.1",
+    "py311-django4.2",
+    "py311-django5.0",
+    "py311-django5.1",
+    "py312-django4.2",
+    "py312-django5.0",
+    "py312-django5.1",
+    "py313-django4.2",
+    "py313-django5.0",
+    "py313-django5.1",
+]
+
+[tool.tox.env_run_base]
+deps = [
+    "pytest",
+    "pytest-cov",
+    "pytest-django",
+]
+commands = [
+    ["pytest", { replace = "posargs", default = [], extend = true }],
+]
+
+[tool.tox.env."py39-django4.2"]
+deps = [
+    { replace = "ref", of = ["tool", "tox", "env_run_base", "deps"], extend = true },
+    "Django>=4.2,<4.3",
+]
+
+[tool.tox.env."py39-django5.0"]
+deps = [
+    { replace = "ref", of = ["tool", "tox", "env_run_base", "deps"], extend = true },
+    "Django>=5.0,<5.1",
+]
+
+[tool.tox.env."py39-django5.1"]
+deps = [
+    { replace = "ref", of = ["tool", "tox", "env_run_base", "deps"], extend = true },
+    "Django>=5.1,<5.2",
+]
+
+[tool.tox.env."py310-django4.2"]
+deps = [
+    { replace = "ref", of = ["tool", "tox", "env_run_base", "deps"], extend = true },
+    "Django>=4.2,<4.3",
+]
+
+[tool.tox.env."py310-django5.0"]
+deps = [
+    { replace = "ref", of = ["tool", "tox", "env_run_base", "deps"], extend = true },
+    "Django>=5.0,<5.1",
+]
+
+[tool.tox.env."py310-django5.1"]
+deps = [
+    { replace = "ref", of = ["tool", "tox", "env_run_base", "deps"], extend = true },
+    "Django>=5.1,<5.2",
+]
+
+[tool.tox.env."py311-django4.2"]
+deps = [
+    { replace = "ref", of = ["tool", "tox", "env_run_base", "deps"], extend = true },
+    "Django>=4.2,<4.3",
+]
+
+[tool.tox.env."py311-django5.0"]
+deps = [
+    { replace = "ref", of = ["tool", "tox", "env_run_base", "deps"], extend = true },
+    "Django>=5.0,<5.1",
+]
+
+[tool.tox.env."py311-django5.1"]
+deps = [
+    { replace = "ref", of = ["tool", "tox", "env_run_base", "deps"], extend = true },
+    "Django>=5.1,<5.2",
+]
+
+[tool.tox.env."py312-django4.2"]
+deps = [
+    { replace = "ref", of = ["tool", "tox", "env_run_base", "deps"], extend = true },
+    "Django>=4.2,<4.3",
+]
+
+[tool.tox.env."py312-django5.0"]
+deps = [
+    { replace = "ref", of = ["tool", "tox", "env_run_base", "deps"], extend = true },
+    "Django>=5.0,<5.1",
+]
+
+[tool.tox.env."py312-django5.1"]
+deps = [
+    { replace = "ref", of = ["tool", "tox", "env_run_base", "deps"], extend = true },
+    "Django>=5.1,<5.2",
+]
+
+[tool.tox.env."py313-django4.2"]
+deps = [
+    { replace = "ref", of = ["tool", "tox", "env_run_base", "deps"], extend = true },
+    "Django>=4.2,<4.3",
+]
+
+[tool.tox.env."py313-django5.0"]
+deps = [
+    { replace = "ref", of = ["tool", "tox", "env_run_base", "deps"], extend = true },
+    "Django>=5.0,<5.1",
+]
+
+[tool.tox.env."py313-django5.1"]
+deps = [
+    { replace = "ref", of = ["tool", "tox", "env_run_base", "deps"], extend = true },
+    "Django>=5.1,<5.2",
+]
+
+[tool.tox.env.lint]
+skip_install = true
+deps = [
+    "ruff",
+]
+commands = [
+    ["ruff", "check", { replace = "posargs", default = ["--diff", "src/webmention", "tests"], extend = true }],
+]
+
+[tool.tox.env.format]
+skip_install = true
+deps = [
+    "black",
+]
+commands = [
+    ["black", { replace = "posargs", default = ["--check", "--diff", "src/webmention", "tests"], extend = true }],
+]
+
+[tool.tox.env.typecheck]
+deps = [
+    { replace = "ref", of = ["tool", "tox", "env_run_base", "deps"], extend = true },
+    "mypy",
+    "django-types",
+    "types-requests",
+]
+commands = [
+    ["mypy", { replace = "posargs", default = ["src/webmention", "tests"], extend = true }],
+]

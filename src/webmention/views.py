@@ -27,7 +27,8 @@ def receive(request):
             webmention.update(source, target, response_body)
             return HttpResponse("The webmention was successfully received", status=202)
         except (SourceFetchError, TargetNotFoundError) as e:
-            webmention.invalidate()
+            if webmention:
+                webmention.invalidate()
             return HttpResponseBadRequest(str(e))
         except Exception as e:
             return HttpResponseServerError(str(e))
