@@ -45,7 +45,7 @@ line-length = 120
 target-version = ["py39", "py310", "py311", "py312", "py313"]
 
 [tool.mypy]
-python_version = "3.9"
+python_version = "3.10"
 warn_unused_configs = true
 show_error_context = true
 pretty = true
@@ -216,7 +216,7 @@ commands = [
     ["mypy", { replace = "posargs", default = ["src/webmention", "tests"], extend = true }],
 ]
 
-[tool.tox-gh-actions]
+[tool.tox-gh-actions.python]
 "3.9" = "py39-django4.2"
 "3.10" = "py310-django4.2, py310-django5.2"
 "3.11" = "py311-django4.2, py311-django5.2"
