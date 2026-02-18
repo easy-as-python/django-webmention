@@ -121,34 +121,16 @@ deps = [
     "Django>=4.2,<4.3",
 ]
 
-[tool.tox.env."py39-django5.0"]
-deps = [
-    { replace = "ref", of = ["tool", "tox", "env_run_base", "deps"], extend = true },
-    "Django>=5.0,<5.1",
-]
-
-[tool.tox.env."py39-django5.1"]
-deps = [
-    { replace = "ref", of = ["tool", "tox", "env_run_base", "deps"], extend = true },
-    "Django>=5.1,<5.2",
-]
-
 [tool.tox.env."py310-django4.2"]
 deps = [
     { replace = "ref", of = ["tool", "tox", "env_run_base", "deps"], extend = true },
     "Django>=4.2,<4.3",
 ]
 
-[tool.tox.env."py310-django5.0"]
+[tool.tox.env."py310-django5.2"]
 deps = [
     { replace = "ref", of = ["tool", "tox", "env_run_base", "deps"], extend = true },
-    "Django>=5.0,<5.1",
-]
-
-[tool.tox.env."py310-django5.1"]
-deps = [
-    { replace = "ref", of = ["tool", "tox", "env_run_base", "deps"], extend = true },
-    "Django>=5.1,<5.2",
+    "Django>=5.2,<5.3",
 ]
 
 [tool.tox.env."py311-django4.2"]
@@ -157,16 +139,10 @@ deps = [
     "Django>=4.2,<4.3",
 ]
 
-[tool.tox.env."py311-django5.0"]
+[tool.tox.env."py311-django5.2"]
 deps = [
     { replace = "ref", of = ["tool", "tox", "env_run_base", "deps"], extend = true },
-    "Django>=5.0,<5.1",
-]
-
-[tool.tox.env."py311-django5.1"]
-deps = [
-    { replace = "ref", of = ["tool", "tox", "env_run_base", "deps"], extend = true },
-    "Django>=5.1,<5.2",
+    "Django>=5.2,<5.3",
 ]
 
 [tool.tox.env."py312-django4.2"]
@@ -175,34 +151,40 @@ deps = [
     "Django>=4.2,<4.3",
 ]
 
-[tool.tox.env."py312-django5.0"]
+[tool.tox.env."py312-django5.2"]
 deps = [
     { replace = "ref", of = ["tool", "tox", "env_run_base", "deps"], extend = true },
-    "Django>=5.0,<5.1",
+    "Django>=5.2,<5.3",
 ]
 
-[tool.tox.env."py312-django5.1"]
+[tool.tox.env."py312-django6.0"]
 deps = [
     { replace = "ref", of = ["tool", "tox", "env_run_base", "deps"], extend = true },
-    "Django>=5.1,<5.2",
+    "Django>=6.0,<6.1",
 ]
 
-[tool.tox.env."py313-django4.2"]
+[tool.tox.env."py313-django5.2"]
 deps = [
     { replace = "ref", of = ["tool", "tox", "env_run_base", "deps"], extend = true },
-    "Django>=4.2,<4.3",
+    "Django>=5.2,<5.3",
 ]
 
-[tool.tox.env."py313-django5.0"]
+[tool.tox.env."py313-django6.0"]
 deps = [
     { replace = "ref", of = ["tool", "tox", "env_run_base", "deps"], extend = true },
-    "Django>=5.0,<5.1",
+    "Django>=6.0,<6.1",
 ]
 
-[tool.tox.env."py313-django5.1"]
+[tool.tox.env."py314-django5.2"]
 deps = [
     { replace = "ref", of = ["tool", "tox", "env_run_base", "deps"], extend = true },
-    "Django>=5.1,<5.2",
+    "Django>=5.2,<5.3",
+]
+
+[tool.tox.env."py314-django6.0"]
+deps = [
+    { replace = "ref", of = ["tool", "tox", "env_run_base", "deps"], extend = true },
+    "Django>=6.0,<6.1",
 ]
 
 [tool.tox.env.lint]
@@ -233,3 +215,11 @@ deps = [
 commands = [
     ["mypy", { replace = "posargs", default = ["src/webmention", "tests"], extend = true }],
 ]
+
+[tool.tox-gh-actions]
+"3.9" = "py39-django4.2"
+"3.10" = "py310-django4.2, py310-django5.2"
+"3.11" = "py311-django4.2, py311-django5.2"
+"3.12" = "py312-django4.2, py312-django5.2, py312-django6.0"
+"3.13" = "py313-django5.2, py313-django6.0"
+"3.14" = "py314-django5.2, py314-django6.0"

@@ -1,0 +1,77 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]       # run on version tags
+  pull_request:
+    branches: [main]   # run on PRs targeting main
+  release:
+    types: [published] # run on Github release
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+      - name: Install dependencies
+        run: pip install tox
+      - name: Lint check
+        run: tox -e lint
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: pip install tox tox-gh-actions
+      - name: Run tests
+        run: tox
+  publish-pypi:
+    name: Upload release to PyPI
+    needs: [lint, test]  # wait for test and lint to pass
+    if: github.event_name == 'release'  # only on release
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/django-webmention
+    permissions:
+      id-token: write  # required for trusted publishing
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+      - name: Build package
+        run: python setup.py sdist bdist_wheel
+      - name: Publish package to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+  publish-pypi-test:
+    name: Upload release to test PyPI
+    needs: [lint, test]  # wait for test and lint to pass
+    if: startsWith(github.ref, 'refs/tags/')  # only on tags
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi-test
+      url: https://test.pypi.org/p/django-webmention
+    permissions:
+      id-token: write  # required for trusted publishing
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+      - name: Build package
+        run: python setup.py sdist bdist_wheel
+      - name: Publish package to test PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
