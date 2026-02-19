@@ -1,11 +1,11 @@
-import requests
-
 from urllib.parse import urlparse
 
+import requests
+
 try:
-    from django.core.urlresolvers import resolve, Resolver404
+    from django.core.urlresolvers import Resolver404, resolve
 except ImportError:
-    from django.urls import resolve, Resolver404
+    from django.urls import Resolver404, resolve
 
 
 def url_resolves(url):
@@ -17,7 +17,8 @@ def url_resolves(url):
 
 
 def fetch_and_validate_source(source, target):
-    response = requests.get(source)
+    # TODO: Create a sensible default timeout for this request, and make it configurable
+    response = requests.get(source)  # noqa: S113 until we have a sensible default timeout
     if response.status_code == 200:
         if target in response.text:
             return response.text

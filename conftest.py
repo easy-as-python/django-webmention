@@ -3,9 +3,9 @@ import pytest
 
 @pytest.fixture
 def test_source():
-    return 'http://example.com'
+    return "http://example.com"
 
 
 @pytest.fixture
 def test_target():
-    return 'http://mysite.com'
+    return "http://mysite.com"

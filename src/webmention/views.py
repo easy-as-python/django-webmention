@@ -1,9 +1,9 @@
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseServerError
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
-from django.http import HttpResponseBadRequest, HttpResponseServerError, HttpResponse
 
 from .models import WebMentionResponse
-from .resolution import url_resolves, fetch_and_validate_source, SourceFetchError, TargetNotFoundError
+from .resolution import SourceFetchError, TargetNotFoundError, fetch_and_validate_source, url_resolves
 
 
 @csrf_exempt

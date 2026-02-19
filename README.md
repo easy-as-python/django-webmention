@@ -18,24 +18,24 @@ This package does not currently provide functionality for [sending webmentions](
 
 `$ pip install django-webmention`
 
-* Add `'webmention'` to `INSTALLED_APPS`
-* Run `python manage.py migrate webmention`
-* Add the URL patterns to your top-level `urls.py`
-    * `path('webmention/', include('webmention.urls'))` for Django >= 3.2
+- Add `'webmention'` to `INSTALLED_APPS`
+- Run `python manage.py migrate webmention`
+- Add the URL patterns to your top-level `urls.py`
+  - `path('webmention/', include('webmention.urls'))` for Django >= 3.2
 
 ## Usage
 
-* Include webmention information by either:
-    * Installing the middleware in `settings.py` (affects all views)
-        * Append `webmention.middleware.webmention_middleware` to your `MIDDLEWARE` settings
-    * Decorating a specific view with `webmention.middleware.include_webmention_information`
-* View webmention responses in the Django admin interface and mark them as reviewed as needed
+- Include webmention information by either:
+  - Installing the middleware in `settings.py` (affects all views)
+    - Append `webmention.middleware.webmention_middleware` to your `MIDDLEWARE` settings
+  - Decorating a specific view with `webmention.middleware.include_webmention_information`
+- View webmention responses in the Django admin interface and mark them as reviewed as needed
 
 ## Development
 
 ### Setup
 
-* Install [tox](https://tox.readthedocs.io)
+- Install [tox](https://tox.readthedocs.io)
 
 ### Running Tests
 

@@ -27,7 +27,7 @@ def test_source_for_admin(test_source, test_target, test_response_body):
     )
     webmention.save()
 
-    assert webmention.source_for_admin() == '<a href="{href}">{href}</a>'.format(href=webmention.source)
+    assert webmention.source_for_admin() == f'<a href="{webmention.source}">{webmention.source}</a>'
 
 
 @pytest.mark.django_db
@@ -37,7 +37,7 @@ def test_response_to_for_admin(test_source, test_target, test_response_body):
     )
     webmention.save()
 
-    assert webmention.response_to_for_admin() == '<a href="{href}">{href}</a>'.format(href=webmention.response_to)
+    assert webmention.response_to_for_admin() == f'<a href="{webmention.response_to}">{webmention.response_to}</a>'
 
 
 @patch("webmention.models.WebMentionResponse.save")

@@ -1,0 +1,55 @@
+# yaml-language-server: $shema=https://json.schemastore.org/pre-commit-config.json
+
+####################################################
+# Checks about the pre-commit configuration itself #
+####################################################
+
+repos:
+  - repo: meta
+    hooks:
+      - id: check-hooks-apply # Ensures all defined hooks affect at least one file in the repo
+      - id: check-useless-excludes # Ensures all defined excludes apply to at least one file in the repo
+
+  ###########################
+  # General use / built-ins #
+  ###########################
+
+  # Click through to this repository to see what other goodies are available
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-ast # Checks Python code for syntax errors
+      - id: trailing-whitespace # Removes trailing whitespace from lines in all file types
+      - id: end-of-file-fixer # Fixes last line of all file types
+      - id: check-merge-conflict # Checks if you're about to commit a file that hasn't had conflicts resolved
+      - id: no-commit-to-branch # Checks if you're committing to a disallowed branch (default is master)
+      - id: check-toml # Checks TOML files for syntax errors
+      - id: check-yaml # Checks YAML files for syntax errors
+
+  ##########
+  # Python #
+  ##########
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.1
+    hooks:
+      - id: ruff-check
+      - id: ruff-format
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.19.1
+    hooks:
+      - id: mypy
+        additional_dependencies:
+          [
+            types-requests,
+          ]
+
+  ############
+  # Markdown #
+  ############
+
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v3.1.0
+    hooks:
+      - id: prettier

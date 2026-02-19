@@ -1,11 +1,10 @@
 from unittest.mock import Mock, patch
 
 import pytest
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseServerError
 
-from django.http import HttpResponseBadRequest, HttpResponse, HttpResponseServerError
-
-from webmention.views import receive
 from webmention.resolution import SourceFetchError, TargetNotFoundError
+from webmention.views import receive
 
 
 def test_receive_when_source_not_in_post_data(test_target):

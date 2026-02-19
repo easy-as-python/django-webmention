@@ -45,9 +45,35 @@ readme = { file = "README.md", content-type = "text/markdown" }
 # Tool configuration #
 ######################
 
-[tool.black]
+[tool.ruff]
 line-length = 120
-target-version = ["py310", "py311", "py312", "py313", "py314"]
+target-version = "py310"
+
+[tool.ruff.lint]
+select = [
+    "A",
+    "B",
+    "C4",
+    "DTZ",
+    "E",
+    "F",
+    "I",
+    "ISC",
+    "LOG",
+    "PT",
+    "PTH",
+    "RUF",
+    "S",
+    "SIM",
+    "UP",
+]
+ignore = [
+    "E501",
+    "PT019",
+    "RUF012",
+    "S101",
+    "S105",
+]
 
 [tool.mypy]
 python_version = "3.10"
@@ -188,16 +214,16 @@ deps = [
     "ruff",
 ]
 commands = [
-    ["ruff", "check", { replace = "posargs", default = ["--diff", "src/webmention", "tests"], extend = true }],
+    ["ruff", "check", { replace = "posargs", default = ["src/webmention", "tests"], extend = true }],
 ]
 
 [tool.tox.env.format]
 skip_install = true
 deps = [
-    "black",
+    "ruff",
 ]
 commands = [
-    ["black", { replace = "posargs", default = ["--check", "--diff", "src/webmention", "tests"], extend = true }],
+    ["ruff", "format", { replace = "posargs", default = ["src/webmention", "tests"], extend = true }],
 ]
 
 [tool.tox.env.typecheck]

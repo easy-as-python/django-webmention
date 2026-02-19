@@ -7,7 +7,7 @@ try:
 except ImportError:
     from django.urls import Resolver404
 
-from webmention.resolution import url_resolves, fetch_and_validate_source, SourceFetchError, TargetNotFoundError
+from webmention.resolution import SourceFetchError, TargetNotFoundError, fetch_and_validate_source, url_resolves
 
 
 @patch("webmention.resolution.resolve")
@@ -26,7 +26,7 @@ def test_url_resolves_when_does_not_resolve(mock_resolve):
 def test_fetch_and_validate_source_happy_path(mock_get, test_source, test_target):
     mock_response = Mock()
     mock_response.status_code = 200
-    mock_response.text = '<a href="{href}">{href}</a>'.format(href=test_target)
+    mock_response.text = f'<a href="{test_target}">{test_target}</a>'
     mock_get.return_value = mock_response
 
     assert fetch_and_validate_source(test_source, test_target) == mock_response.text

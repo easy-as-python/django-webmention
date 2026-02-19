@@ -1,9 +1,8 @@
 from unittest.mock import Mock
 
 import pytest
-
-from django.urls import reverse
 from django.http import HttpResponse
+from django.urls import reverse
 
 from webmention.middleware import WebMentionMiddleware
 
