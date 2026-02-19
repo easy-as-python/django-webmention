@@ -1,11 +1,13 @@
 [project]
 name = "django-webmention"
-version = "3.0.0"
-description = "A pluggable implementation of webmention for Django projects"
+version = "4.0.0"
+description = "A pluggable implementation for receiving webmentions for Django projects"
 authors = [
     { name = "Dane Hillard", email = "github@danehillard.com" },
 ]
-license = { file = "LICENSE" }
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
@@ -14,11 +16,9 @@ classifiers = [
     "Framework :: Django :: 5.2",
     "Framework :: Django :: 6.0",
     "Topic :: Internet :: WWW/HTTP :: Indexing/Search",
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -29,6 +29,7 @@ dependencies = [
     "Django>=4.2.0",
     "requests>=2.32.3",
 ]
+dynamic = ["readme"]
 
 [project.urls]
 Repository = "https://github.com/easy-as-python/django-webmention"
@@ -37,13 +38,16 @@ Repository = "https://github.com/easy-as-python/django-webmention"
 where = ["src"]
 exclude = ["test*"]
 
+[tool.setuptools.dynamic]
+readme = { file = "README.md", content-type = "text/markdown" }
+
 ######################
 # Tool configuration #
 ######################
 
 [tool.black]
 line-length = 120
-target-version = ["py39", "py310", "py311", "py312", "py313", "py314"]
+target-version = ["py310", "py311", "py312", "py313", "py314"]
 
 [tool.mypy]
 python_version = "3.10"
@@ -89,7 +93,6 @@ xfail_strict = true
 
 [tool.tox]
 envlist = [
-    "py39-django4.2",
     "py310-django4.2",
     "py310-django5.2",
     "py311-django4.2",
@@ -111,12 +114,6 @@ deps = [
 ]
 commands = [
     ["pytest", { replace = "posargs", default = [], extend = true }],
-]
-
-[tool.tox.env."py39-django4.2"]
-deps = [
-    { replace = "ref", of = ["tool", "tox", "env_run_base", "deps"], extend = true },
-    "Django>=4.2,<4.3",
 ]
 
 [tool.tox.env."py310-django4.2"]
@@ -215,7 +212,6 @@ commands = [
 ]
 
 [tool.tox-gh-actions.python]
-"3.9" = "py39-django4.2"
 "3.10" = "py310-django4.2, py310-django5.2"
 "3.11" = "py311-django4.2, py311-django5.2"
 "3.12" = "py312-django4.2, py312-django5.2, py312-django6.0"
