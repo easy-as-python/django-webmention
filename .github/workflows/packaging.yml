@@ -11,8 +11,11 @@ on:
 
 jobs:
   check:
-    name: Format, lint and type checks
+    name: Check ${{ matrix.tox-env }}
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        tox-env: [format, lint, typecheck]
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
@@ -20,12 +23,8 @@ jobs:
           python-version: "3.14"
       - name: Install tox
         run: python -m pip install tox
-      - name: Run format check
-        run: tox -e format
-      - name: Run lint check
-        run: tox -e lint
-      - name: Run type check
-        run: tox -e typecheck
+      - name: Run ${{ matrix.tox-env }} check
+        run: tox -e ${{ matrix.tox-env }}
 
   test:
     name: Test
