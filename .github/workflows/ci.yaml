@@ -3,11 +3,11 @@ name: CI
 on:
   push:
     branches: [main]
-    tags: ["v*"]       # run on version tags
+    tags: ["v*"]        # run on version tags
   pull_request:
-    branches: [main]   # run on PRs targeting main
+    branches: [main]    # run on PRs targeting main
   release:
-    types: [published] # run on Github release
+    types: [published]  # run on Github release
 
 jobs:
   lint:
@@ -35,9 +35,24 @@ jobs:
         run: pip install tox tox-gh-actions
       - name: Run tests
         run: tox
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+      - name: Install build tools
+        run: pip install build
+      - name: Build package
+        run: python -m build
+      - uses: actions/upload-artifacts@v4
+        with:
+          name: dist
+          path: dist/
   publish-pypi:
     name: Upload release to PyPI
-    needs: [lint, test]  # wait for test and lint to pass
+    needs: [lint, test, build]  # wait for test and lint to pass
     if: github.event_name == 'release'  # only on release
     runs-on: ubuntu-latest
     environment:
@@ -46,17 +61,15 @@ jobs:
     permissions:
       id-token: write  # required for trusted publishing
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-python@v6
+      - uses: actions/download-artifacts@v6
         with:
-          python-version: "3.14"
-      - name: Build package
-        run: python setup.py sdist bdist_wheel
+          name: dist
+          path: dist/
       - name: Publish package to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
   publish-pypi-test:
     name: Upload release to test PyPI
-    needs: [lint, test]  # wait for test and lint to pass
+    needs: [lint, test, build]  # wait for test and lint to pass
     if: startsWith(github.ref, 'refs/tags/')  # only on tags
     runs-on: ubuntu-latest
     environment:
@@ -65,12 +78,10 @@ jobs:
     permissions:
       id-token: write  # required for trusted publishing
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-python@v6
+      - uses: actions/download-artifacts@v6
         with:
-          python-version: "3.14"
-      - name: Build package
-        run: python setup.py sdist bdist_wheel
+          name: dist
+          path: dist/
       - name: Publish package to test PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
