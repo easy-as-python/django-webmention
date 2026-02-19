@@ -10,9 +10,9 @@ classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "Framework :: Django",
-    "Framework :: Django :: 3.2",
-    "Framework :: Django :: 4.0",
-    "Framework :: Django :: 4.1",
+    "Framework :: Django :: 4.2",
+    "Framework :: Django :: 5.2",
+    "Framework :: Django :: 6.0",
     "Topic :: Internet :: WWW/HTTP :: Indexing/Search",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python",
@@ -23,6 +23,7 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
 ]
 dependencies = [
     "Django>=4.2.0",
@@ -42,7 +43,7 @@ exclude = ["test*"]
 
 [tool.black]
 line-length = 120
-target-version = ["py39", "py310", "py311", "py312", "py313"]
+target-version = ["py39", "py310", "py311", "py312", "py313", "py314"]
 
 [tool.mypy]
 python_version = "3.10"
@@ -89,20 +90,17 @@ xfail_strict = true
 [tool.tox]
 envlist = [
     "py39-django4.2",
-    "py39-django5.0",
-    "py39-django5.1",
     "py310-django4.2",
-    "py310-django5.0",
-    "py310-django5.1",
+    "py310-django5.2",
     "py311-django4.2",
-    "py311-django5.0",
-    "py311-django5.1",
+    "py311-django5.2",
     "py312-django4.2",
-    "py312-django5.0",
-    "py312-django5.1",
-    "py313-django4.2",
-    "py313-django5.0",
-    "py313-django5.1",
+    "py312-django5.2",
+    "py312-django6.0",
+    "py313-django5.2",
+    "py313-django6.0",
+    "py314-django5.2",
+    "py314-django6.0",
 ]
 
 [tool.tox.env_run_base]
